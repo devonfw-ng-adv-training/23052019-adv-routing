@@ -1,0 +1,13 @@
+<form (submit)="handleSearch($event)">
+  <section>
+    <label for="title">Title:&nbsp;</label>
+    <input id="title" type="text" [value]="criteria.title || ''"/>
+  </section>
+  <section>
+    <label for="author">Author:&nbsp;</label>
+    <input id="author" type="text" [value]="criteria.author || ''" />
+  </section>
+  <section>
+    <button type="submit">Search</button>
+  </section>
+</form>
