@@ -1,3 +1,4 @@
 <ul>
-  <li *ngFor="let book of results">{{book.author}} | {{book.title}}</li>
+  <li *ngFor="let book of results">{{book.author}} | {{book.title}}
+    | <a [routerLink]="['/', 'client','book', book.id]">Details</a></li>
 </ul>

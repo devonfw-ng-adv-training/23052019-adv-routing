@@ -12,10 +12,7 @@ import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
   styleUrls: ['./book-overview-dialog.component.scss']
 })
 export class BookOverviewDialogComponent implements OnDestroy {
-  currentSearchCriteria: BookSearchCriteria = {
-    author: '',
-    title: ''
-  };
+  currentSearchCriteria: BookSearchCriteria;
 
   searchResults: Book[] = [];
 

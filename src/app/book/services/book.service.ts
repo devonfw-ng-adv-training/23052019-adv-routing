@@ -1,7 +1,8 @@
 import { BookSearchCriteria } from '../model/book-search-criteria';
-import { Observable, of } from 'rxjs';
+import { Observable, of, timer } from 'rxjs';
 import { Book } from '../model/book';
 import { Injectable } from '@angular/core';
+import { delay } from 'rxjs/operators';
 
 
 const books: Book[] = [
@@ -34,6 +35,11 @@ export class BookService {
       return titleMatches && authorMatches;
     });
 
-    return of(results);
+    return of(results).pipe(delay(1000));
+  }
+
+  getOne(id: number): Observable<Book | undefined> {
+    const foundBook = books.find(book => book.id === id);
+    return of(foundBook).pipe(delay(3000));
   }
 }

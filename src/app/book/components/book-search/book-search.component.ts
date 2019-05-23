@@ -16,7 +16,6 @@ export class BookSearchComponent {
   constructor() { }
 
   handleSearch($event: Event) {
-    console.log($event);
     $event.preventDefault();
     const form = $event.target as HTMLElement;
     const titleElement = form.querySelector<HTMLInputElement>('#title');
