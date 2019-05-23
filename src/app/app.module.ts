@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { BookModule } from './book/book.module';
 import { RouterModule } from '@angular/router';
 import { BookOverviewDialogComponent } from './book/components/book-overview-dialog/book-overview-dialog.component';
+import { BookService } from './book/services/book.service';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [

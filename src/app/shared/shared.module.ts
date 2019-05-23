@@ -9,4 +9,5 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [CommonModule, RouterModule]
 })
-export class SharedModule { }
+export class SharedModule {
+}

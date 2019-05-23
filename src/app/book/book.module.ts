@@ -3,6 +3,7 @@ import { SharedModule } from '../shared/shared.module';
 import { BookOverviewDialogComponent } from './components/book-overview-dialog/book-overview-dialog.component';
 import { BookSearchComponent } from './components/book-search/book-search.component';
 import { BookResultsComponent } from './components/book-results/book-results.component';
+import { BookService } from './services/book.service';
 
 @NgModule({
   declarations: [BookOverviewDialogComponent, BookSearchComponent, BookResultsComponent],
