@@ -1,5 +1,6 @@
 import { BookSearchComponent } from './book-search.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 fdescribe('BookSearchComponent', () => {
   let title;
@@ -11,23 +12,10 @@ fdescribe('BookSearchComponent', () => {
   });
 
   describe('(class)', () => {
-    let eventMock;
-
-    beforeEach(() => {
-      eventMock = {
-        preventDefault() {
-        },
-        target: {
-          querySelector(selector: string) {
-            return selector === '#title' ? {value: title} : {value: author};
-          }
-        }
-      };
-    });
-
     it('fires an event containing search criteria when clicked', (done) => {
       // given
-      const component = new BookSearchComponent();
+      const component = new BookSearchComponent(new FormBuilder());
+      component.criteria = {title, author};
       component.search.subscribe(searchCriteria => {
         // then
         expect(searchCriteria).toBeDefined();
@@ -36,20 +24,7 @@ fdescribe('BookSearchComponent', () => {
         done();
       });
       // when
-      component.handleSearch(eventMock);
-    });
-
-    it('prevents default submit behavior when clicked', (done) => {
-      // given
-      spyOn(eventMock, 'preventDefault');
-      const component = new BookSearchComponent();
-      component.search.subscribe(searchCriteria => {
-        // then
-        expect(eventMock.preventDefault).toHaveBeenCalled();
-        done();
-      });
-      // when
-      component.handleSearch(eventMock);
+      component.handleSearch();
     });
   });
 
@@ -59,6 +34,7 @@ fdescribe('BookSearchComponent', () => {
 
     beforeEach(async(() => {
       TestBed.configureTestingModule({
+        imports: [ReactiveFormsModule],
         declarations: [BookSearchComponent]
       })
         .compileComponents();
@@ -109,8 +85,11 @@ fdescribe('BookSearchComponent', () => {
       const componentHtmlElement = fixture.nativeElement as HTMLElement;
       const titleInput = componentHtmlElement.querySelector<HTMLInputElement>('#title');
       titleInput.value = newTitle;
+      titleInput.dispatchEvent(new Event('input'));
+
       const authorInput = componentHtmlElement.querySelector<HTMLInputElement>('#author');
       authorInput.value = newAuthor;
+      authorInput.dispatchEvent(new Event('input'));
 
       const buttonElement = componentHtmlElement.querySelector<HTMLButtonElement>('button');
       buttonElement.click();

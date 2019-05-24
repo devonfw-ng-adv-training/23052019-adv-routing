@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { BookSearchCriteria } from '../../model/book-search-criteria';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-book-search',
@@ -9,22 +10,25 @@ import { BookSearchCriteria } from '../../model/book-search-criteria';
 })
 export class BookSearchComponent {
   @Input()
-  criteria: BookSearchCriteria;
+  set criteria(newCriteria: BookSearchCriteria) {
+    if (newCriteria) {
+      this.form.setValue(newCriteria);
+    }
+  }
 
   @Output()
   search: EventEmitter<BookSearchCriteria> = new EventEmitter();
 
-  constructor() { }
+  form: FormGroup;
 
-  handleSearch($event: Event) {
-    $event.preventDefault();
-    const form = $event.target as HTMLElement;
-    const titleElement = form.querySelector<HTMLInputElement>('#title');
-    const authorElement = form.querySelector<HTMLInputElement>('#author');
-
-    this.search.emit({
-      title: titleElement.value,
-      author: authorElement.value
+  constructor(fb: FormBuilder) {
+    this.form = fb.group({
+      title: '',
+      author: ''
     });
+  }
+
+  handleSearch() {
+    this.search.emit(this.form.value);
   }
 }
